@@ -1,20 +1,13 @@
-// ================= BOARD =================
 const board = document.getElementById("board");
-
-// ================= GAME VARIABLES =================
 let direction = { x: 0, y: 0 };
 let speed = 7;
 let lastPaintTime = 0;
 
 let snakeArr = [{ x: 9, y: 9 }];
 let food = { x: 5, y: 5 };
-
-// ================= AUDIO VARIABLES =================
 let foodSound, moveSound, gameOverSound, bgSound;
 let soundsReady = false;
 let audioContext;
-
-// ================= INIT SOUNDS (CLICK REQUIRED) =================
 function initSounds() {
     if (soundsReady) return;
 
@@ -39,16 +32,12 @@ function initSounds() {
 window.addEventListener("click", () => {
     initSounds();
 }, { once: true });
-
-// ================= GAME LOOP =================
 function main(ctime) {
     window.requestAnimationFrame(main);
     if ((ctime - lastPaintTime) / 1000 < 1 / speed) return;
     lastPaintTime = ctime;
     gameEngine();
 }
-
-// ================= COLLISION =================
 function isCollide(snake) {
     // Wall collision
     if (
@@ -67,8 +56,6 @@ function isCollide(snake) {
     }
     return false;
 }
-
-// ================= GAME ENGINE =================
 function gameEngine() {
 
     // GAME OVER
@@ -131,8 +118,6 @@ function gameEngine() {
     foodElement.classList.add("food");
     board.appendChild(foodElement);
 }
-
-// ================= CONTROLS =================
 window.addEventListener("keydown", e => {
     if (moveSound) moveSound.play();
 
@@ -151,6 +136,4 @@ window.addEventListener("keydown", e => {
             break;
     }
 });
-
-// ================= START GAME =================
 window.requestAnimationFrame(main);
